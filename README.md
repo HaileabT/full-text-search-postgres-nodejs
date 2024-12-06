@@ -3,18 +3,39 @@
 ## Usage
 1. Create postgres connection
 ```typescript
-const conn = new PostgresConnection("postgres", "password@", 5432, "random_db", "localhost");
+const connectionObject = new PostgresConnection("postgres", "password@", 5432, "random_db", "localhost");
 ```
 
 2. Create a search manager
 ```typescript
-const searchManager = FullTextSearchManager.init(conn.conn, {
-  mainEntity: "user",
+const searchManagerOptions: FullTextSearchManagerOptions = {
+  mainEntity: "foo",
   fieldsToBeSearched: [
-    { entity: "post", field: "title", relationField: "user_id", rank: "A" },
-    { entity: "user", field: "name", relationField: "", rank: "A" },
+    { entity: "bar", field: "title", relationField: "foo_id", rank: "A" },
+    { entity: "foo", field: "name", relationField: "", rank: "A" },
   ],
-});
+};
+
+const searchManager = FullTextSearchManager.init(connectionObject.conn, searchManagerOptions);
+```
+
+#### FullTextSearchManagerOptions
+```typescript
+type FullTextSearchManagerOptions = {
+  mainEntity: string;  // Entity to be searched
+  fieldsToBeSearched?: EntityField[];  // Fields to be searched picked from all entities
+};
+```
+
+#### EntityField
+```typescript
+interface EntityField = {
+  entity: string; // Entity where the might-be-searched field exists
+  field: string; // Field name
+  relationField?: string; // The foreign key with which the main entity relates to this field's entity
+  rank?: "A" | "B" | "C" | "D"; // Rank of this field
+}
+
 ```
 
 3. Search
