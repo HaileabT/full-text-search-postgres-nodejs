@@ -19,10 +19,10 @@ const connectionObject = new PostgresConnection("postgres", "password@", 5432, "
 4. Create a search manager
 ```typescript
 const searchManagerOptions: FullTextSearchManagerOptions = {
-  mainEntity: "foo",
+  mainEntity: "human",
   fieldsToBeSearched: [
-    { entity: "bar", field: "title", relationField: "foo_id", rank: "A" },
-    { entity: "foo", field: "name", relationField: "", rank: "A" },
+    { entity: "skill", field: "title", relationField: "human_id", rank: "A" },
+    { entity: "human", field: "name", relationField: "", rank: "A" },
   ],
 };
 
@@ -50,12 +50,12 @@ interface EntityField = {
 
 5. Search
 ```typescript
-const searchResults = async () => {
+const doSearch = async () => {
   if (!searchManager) return;
-  const res = await searchManager.search("addiction");
+  const res = await searchManager.search("karate");
 
   console.log(res);
 };
 
-searchResults();
+doSearch();
 ```
