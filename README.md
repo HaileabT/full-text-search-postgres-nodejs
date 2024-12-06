@@ -1,12 +1,22 @@
 # This is a lightweight full text search library for nodejs postgres
 
 ## Usage
-1. Create postgres connection
+1. Clone it
+```git
+git clone https://github.com/HaileabT/full-text-search-postgres-nodejs.git /your/desired/path
+```
+
+2. Install dependencies
+```npm
+npm i
+```
+
+3. Create postgres connection
 ```typescript
 const connectionObject = new PostgresConnection("postgres", "password@", 5432, "random_db", "localhost");
 ```
 
-2. Create a search manager
+4. Create a search manager
 ```typescript
 const searchManagerOptions: FullTextSearchManagerOptions = {
   mainEntity: "foo",
@@ -38,7 +48,7 @@ interface EntityField = {
 
 ```
 
-3. Search
+5. Search
 ```typescript
 const searchResults = async () => {
   if (!searchManager) return;
